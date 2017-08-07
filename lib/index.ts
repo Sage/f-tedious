@@ -134,7 +134,7 @@ export function reader<T>(connection: tds.Connection, sql: string, args: any[], 
 	opts.fillParameters(request, args);
 
 	// set up listeners
-	request.on('row', function (row) {
+	request.on('row', function (row: T) {
 		if (stopped) return;
 		if (tracer) tracer('ROW', row);
 		send(null, row);
