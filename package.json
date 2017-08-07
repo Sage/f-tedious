@@ -1,28 +1,28 @@
 {
-    "name": "f-tedious",
-    "description": "f-streams for SQL Server (tedious)",
-    "version": "1.0.0",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/Sage/f-tedious.git"
-    },
-    "engines": {
-        "node": ">=4.0.0"
-    },
-    "dependencies": {
-        "f-promise": "^1.0.4",
-        "f-streams": "^1.0.8",
-        "tedious": "^2.0.0"
-    },
-    "author": "Sage",
-    "main": "build/index.js",
-    "devDependencies": {
-        "@types/tedious": "^1.8.30",
-        "typescript": "^2.4.2"
-    },
-    "scripts": {
-        "prepublish": "node_modules/typescript/bin/tsc",
-        "lint": "tslint -e 'node_modules/**' -p ."
-    }
+  "name": "f-tedious",
+  "description": "f-streams for SQL Server (tedious)",
+  "version": "1.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Sage/f-tedious.git"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "dependencies": {
+    "f-promise": "^1.0.4",
+    "f-streams": "^1.0.8",
+    "tedious": "^2.0.0"
+  },
+  "author": "Sage",
+  "main": "build/index.js",
+  "devDependencies": {
+    "@types/tedious": "^1.8.30",
+    "typescript": "^2.4.2"
+  },
+  "scripts": {
+    "prepublish": "node_modules/typescript/bin/tsc",
+    "lint": "tslint -e 'node_modules/**' -p ."
+  }
 }
