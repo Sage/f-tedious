@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "f-promise": "^1.0.4",
-    "f-streams": "^1.0.8",
+    "f-streams": "^2.0.0",
     "tedious": "^2.0.0"
   },
   "author": "Sage",

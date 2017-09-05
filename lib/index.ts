@@ -1,5 +1,5 @@
 import { wait } from 'f-promise';
-import { devices, Reader, Writer } from 'f-streams';
+import { genericReader, genericWriter, Reader, Writer } from 'f-streams';
 import * as tds from 'tedious';
 
 const tracer: (...args: any[]) => void = undefined;
@@ -83,7 +83,7 @@ export function reader<T>(connection: tds.Connection, sql: string, args: any[], 
 			}
 		};
 	}
-	const rd = devices.generic.reader<T>(withClose(function () {
+	const rd = genericReader<T>(withClose(function () {
 		return wait(cb => {
 
 			if (tracer) tracer('READ', error, received.length, done);
@@ -229,7 +229,7 @@ export function writer<T>(connection: tds.Connection, sql: string, opts: WriterO
 	connection.on('errorMessage', processError);
 
 	//var requestPrepared = false;
-	return devices.generic.writer(function (obj) {
+	return genericWriter(function (obj) {
 		return wait(cb => {
 
 			if (done) return;
