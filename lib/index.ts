@@ -54,15 +54,15 @@ export function reader<T>(connection: tds.Connection, sql: string, args: any[], 
 		if (tracer) tracer('send(' + (err && err.message) + ',' + result + ')');
 		const cb = callback;
 		callback = null;
+		error = error || err;
 		if (cb) {
 			if (result) {
-				cb(err, result);
+				cb(error, result);
 			} else {
 				done = true;
-				cb(null);
+				cb(error);
 			}
 		} else {
-			error = error || err;
 			if (result) {
 				// Enqueue the row, il will be dequeued by the generic.reader
 				push(result);
