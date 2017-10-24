@@ -105,6 +105,7 @@ export function reader<T>(connection: tds.Connection, sql: string, args: any[], 
 
 			// The request is not completed yet, we have to store the callback, it will
 			// be invoked later, when a result will be available (see send() method)
+			(connection as any).socket.resume();
 			callback = cb;
 		});
 	}), withClose(function stop() {
