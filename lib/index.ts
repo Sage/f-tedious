@@ -114,6 +114,7 @@ export function reader<T>(connection: tds.Connection, sql: string, args: any[], 
 			if (done) return cb(undefined);
 			stopped = true;
 			connection.cancel();
+			(connection as any).socket.resume();
 			callback = cb;
 		});
 	}));
