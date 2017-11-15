@@ -23,8 +23,7 @@ export function reader<T>(connection: tds.Connection, sql: string, args: any[], 
 	let error: any = null,
 		callback: Callback<any> = null,
 		stopped = false,
-		done = false,
-		paused = false;
+		done = false;
 
 	// buffering for rows that have been received but not yet read
 	const received = [] as T[],
@@ -38,13 +37,11 @@ export function reader<T>(connection: tds.Connection, sql: string, args: any[], 
 		received.push(record);
 		if (received.length === high) {
 			(connection as any).socket.pause();
-			paused = true;
 		}
 	}
 
 	function shift() {
 		if (received.length === low + 1) {
-			paused = false;
 			(connection as any).socket.resume();
 		}
 		return received.shift();
