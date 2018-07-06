@@ -82,6 +82,7 @@ export function reader<T>(connection: tds.Connection, sql: string, args: any[], 
 	}
 	const rd = genericReader<T>(withClose(function () {
 		return wait(cb => {
+			if (!request && !done) createRequest();
 
 			if (tracer) tracer('READ', error, received.length, done);
 			if (error) {
@@ -119,28 +120,31 @@ export function reader<T>(connection: tds.Connection, sql: string, args: any[], 
 
 	if (tracer) tracer('reader initialized : ' + sql);
 
-	// create the request
-	let request = new tds.Request(sql, function (err, rowCount, rows) {
-		if (tracer) tracer('TDS request complete', err, rowCount, rows);
-		// ignore error if we have been stopped
-		request.removeAllListeners();
-		request = null;
-		send(stopped ? null : err);
-	});
+	let request: tds.Request = undefined;
+	const createRequest = () => {
+		// create the request
+		request = new tds.Request(sql, function (err, rowCount, rows) {
+			if (tracer) tracer('TDS request complete', err, rowCount, rows);
+			// ignore error if we have been stopped
+			request.removeAllListeners();
+			request = null;
+			send(stopped ? null : err);
+		});
 
-	// set the parameters
-	if (typeof opts.fillParameters !== 'function') throw new Error('fillParameters option missing');
-	opts.fillParameters(request, args);
+		// set the parameters
+		if (typeof opts.fillParameters !== 'function') throw new Error('fillParameters option missing');
+		opts.fillParameters(request, args);
 
-	// set up listeners
-	request.on('row', function (row: T) {
-		if (stopped) return;
-		if (tracer) tracer('ROW', row);
-		send(null, row);
-	});
+		// set up listeners
+		request.on('row', function (row: T) {
+			if (stopped) return;
+			if (tracer) tracer('ROW', row);
+			send(null, row);
+		});
 
-	// execute the query
-	connection.execSql(request);
+		// execute the query
+		connection.execSql(request);
+	};
 
 	return rd;
 }
