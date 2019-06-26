@@ -1,7 +1,7 @@
 {
     "name": "f-tedious",
     "description": "f-streams for SQL Server (tedious)",
-    "version": "1.0.7",
+    "version": "2.0.0",
     "license": "MIT",
     "repository": {
         "type": "git",
