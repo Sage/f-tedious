@@ -3,9 +3,7 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "target": "es2015",
-        "lib": [
-            "es2015"
-        ],
+        "lib": ["es2015"],
         "outDir": "build",
         "rootDir": ".",
         "sourceMap": true,
@@ -16,9 +14,6 @@
         "strictNullChecks": false,
         "experimentalDecorators": true
     },
-    "exclude": [
-        "node_modules",
-        "build"
-    ],
+    "exclude": ["node_modules", "build"],
     "compileOnSave": true
 }
