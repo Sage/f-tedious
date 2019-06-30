@@ -270,8 +270,9 @@ export function writer<T>(connection: tds.Connection, sql: string, opts: WriterO
                     // We can't execute the request now, the connection is not in a valid state
                     // We have to enqueue the values. The request will be executed as soon as
                     // the request will be prepared (see request.on('prepared') for more details)
-                    if (tracer)
+                    if (tracer) {
                         tracer("waiting for request's prepare : enqueing values " + JSON.stringify(paramValues));
+                    }
                     pendingParamValues = paramValues;
                 } else {
                     if (tracer) tracer('execute values ' + JSON.stringify(paramValues));
